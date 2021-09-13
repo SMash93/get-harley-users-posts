@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserList } from "./userAPI";
+import { USERS_PER_PAGE } from "../../pages/Users/constants";
 
 const initialState = {
   users: [],
   status: "idle",
-  totalPosts: 0
+  totalPages: 0
 };
 
 export const userSlice = createSlice({
@@ -18,7 +19,10 @@ export const userSlice = createSlice({
       .addCase(getUserList.fulfilled, (state, action) => {
         state.status = "idle";
         state.users = action.payload.data;
-        state.totalPosts = action.payload.total;
+        state.totalPages = Math.ceil(action.payload.total / USERS_PER_PAGE);
+      })
+      .addCase(getUserList.rejected, state => {
+        state.status = "error";
       });
   }
 });

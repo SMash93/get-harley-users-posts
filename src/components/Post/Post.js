@@ -17,6 +17,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Link from "@material-ui/core/Link";
 import ShareIcon from "@material-ui/icons/Share";
 
+import Box from "@material-ui/core/Box";
 import { getCommentsForPost } from "./postAPI";
 import Comment from "../Comment/Comment";
 
@@ -32,6 +33,7 @@ const Post = props => {
   const comments = useSelector(state => state.post.comments[id] || {});
 
   useEffect(() => {}, [comments]);
+
   const handleExpandClick = () => {
     if (!expanded) {
       dispatch(getCommentsForPost({ postId: id }));
@@ -116,8 +118,13 @@ const Post = props => {
           {comments.status === "loading" ? (
             <CircularProgress />
           ) : (
-            comments.data &&
-            comments.data.map(comment => <Comment comment={comment} />)
+            <Box>
+              <Typography variant="body2" color="textSecondary" align="center">
+                Comments: {comments.totalComments}
+              </Typography>
+              {comments.data &&
+                comments.data.map(comment => <Comment comment={comment} />)}
+            </Box>
           )}
         </CardContent>
       </Collapse>

@@ -11,22 +11,18 @@ const Comment = props => {
   return (
     <Paper key={comment.id} className={classes.container}>
       <Grid container wrap="nowrap" spacing={2}>
-        <>
-          <Grid item>
-            <Avatar src={comment.owner.picture} />
-          </Grid>
-          <Grid item xs zeroMinWidth>
-            <h4
-              style={{ margin: 0, textAlign: "left" }}
-            >{`${comment.owner.title}. ${comment.owner.firstName} ${comment.owner.lastName}`}</h4>
-            <Typography className={classes.message}>
-              {comment.message}
-            </Typography>
-            <Typography className={classes.publishedDate}>
-              Published: {comment.publishDate}
-            </Typography>
-          </Grid>
-        </>
+        <Grid item>
+          <Avatar src={comment.owner.picture} />
+        </Grid>
+        <Grid item xs zeroMinWidth>
+          <h4
+            style={{ margin: 0, textAlign: "left" }}
+          >{`${comment.owner.title}. ${comment.owner.firstName} ${comment.owner.lastName}`}</h4>
+          <Typography className={classes.message}>{comment.message}</Typography>
+          <Typography className={classes.publishedDate}>
+            Published: {comment.publishDate}
+          </Typography>
+        </Grid>
       </Grid>
     </Paper>
   );

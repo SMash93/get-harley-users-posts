@@ -26,7 +26,7 @@ const Api = options => {
   const onError = error => {
     if (error.response) {
       // eslint-disable-next-line no-console
-      console.debug("Request Successful!", error.response);
+      console.debug("Error on Request!", error.response);
     }
 
     return Promise.reject(error.response || error.message);

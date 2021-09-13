@@ -22,9 +22,7 @@ const PostsList = props => {
   const status = useSelector(state => state.post.status);
   const totalPages = useSelector(state => state.post.totalPages);
 
-  useEffect(() => {
-    setPageTitle(location.state.name);
-    const params = { page: 0, limit: POSTS_PER_PAGE };
+  const fillPostsData = params => {
     if (location.pathname.includes("/users/posts")) {
       params.userId = userId;
       dispatch(getPostsByUser(params));
@@ -32,17 +30,17 @@ const PostsList = props => {
       params.tagId = tagId;
       dispatch(getPostsByTag(params));
     }
+  };
+
+  useEffect(() => {
+    setPageTitle(location.state.name);
+    const params = { page: 0, limit: POSTS_PER_PAGE };
+    fillPostsData(params);
   }, [dispatch, userId, tagId]);
 
   const handlePageChange = (event, page) => {
     const params = { page, limit: POSTS_PER_PAGE };
-    if (location.pathname.includes("/users/posts")) {
-      params.userId = userId;
-      dispatch(getPostsByUser(params));
-    } else {
-      params.tagId = tagId;
-      dispatch(getPostsByTag(params));
-    }
+    fillPostsData(params);
   };
 
   return (
@@ -103,10 +101,7 @@ const useStyles = theme => ({
     bottom: 0
   },
   progressBar: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2)
-    }
+    width: "100%"
   }
 });
 PostsList.propTypes = {

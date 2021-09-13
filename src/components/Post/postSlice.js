@@ -5,9 +5,7 @@ import { POSTS_PER_PAGE } from "../../pages/Posts/constants";
 const initialState = {
   posts: [],
   status: "idle",
-  commentsStatus: "idle",
   totalPages: 0,
-  totalComments: 0,
   comments: {}
 };
 
@@ -39,7 +37,7 @@ export const postSlice = createSlice({
         state.comments[action.payload.postId] = {
           data: action.payload.data,
           status: action.payload.status,
-          totalComments: Math.ceil(action.payload.total / POSTS_PER_PAGE)
+          totalComments: action.payload.total
         };
       });
   }

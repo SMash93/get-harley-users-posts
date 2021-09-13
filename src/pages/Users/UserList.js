@@ -15,6 +15,7 @@ const UserList = props => {
   const { classes } = props;
   const dispatch = useDispatch();
   const users = useSelector(state => state.user.users);
+  const totalUserPages = useSelector(state => state.user.totalPages);
   const status = useSelector(state => state.user.status);
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const UserList = props => {
         <Box className={classes.pagination}>
           <Pagination
             color="primary"
-            count={10}
+            count={totalUserPages}
             variant="outlined"
             shape="rounded"
             onChange={handlePageChange}
@@ -84,10 +85,7 @@ const useStyles = theme => ({
     bottom: 0
   },
   progressBar: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2)
-    }
+    width: "100%"
   }
 });
 UserList.propTypes = {
